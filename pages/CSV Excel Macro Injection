@@ -1,0 +1,28 @@
+---
+
+layout: col-sidebar
+title: CSV Excel Macro Injection
+author: Justin Chong
+contributors: 
+tags: CSV Excel Macro Injection
+
+---
+
+Applications which holds the functionality for exporting of spreadsheets are vulnerable to this form of injection attacks.
+The spreadsheets are dynamically generated from unvalidated or unfiltered user inputs.
+Multiple modern web application offers the export function allowing user to download data in .csv or .xls format. 
+While there are multiple vulnerabilities with the .xls format such as macro injection, .csv is the safer option due to the inability of embedding a macro.
+
+The end user who is accessing the exported spreadsheet are the affected parties.
+Some example of payloads that are vulnerable here are "=cmd|’ /C calc’!A0".
+
+In the particular payload listed here we can view the payload into multiple sections.
+"cmd" is the name of the server which the client is trying to access. In layman terms this is the application being asked to run which is the command prompt program.
+"/C calc" is the file name of the application which can be referenced as the calculator.exe on Windows. 
+"!A0" specifies the unit which the server can respond in layman terms the location within the excel file.
+
+The only way this attack can be carried out is by exploiting the fact that the web application trust all user input from the end users.
+
+A recommendation to fix the following vulnerability would be to Sanitise and Validate User Supplied Input.
+User-supplied data should be sanitised and undergo input validation to filter and check for malicious comments. 
+Some special characters that should be blacklisted are "=","+","-","@".
